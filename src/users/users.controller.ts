@@ -75,7 +75,7 @@ export class UsersController {
     return this.usersService.getSummaryByCodigo(codigo);
   }
 
-  /*
+  
   @Throttle({
     default: {
       limit: 3,
@@ -91,5 +91,5 @@ export class UsersController {
   ) {
     return this.usersService.updateAnyFieldByCode(userId, codigo, dto.data);
   }
-    */
+    
 }
