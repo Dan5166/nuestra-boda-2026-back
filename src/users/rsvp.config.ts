@@ -1,0 +1,1 @@
+export const RSVP_DEADLINE = new Date('2026-02-08T23:59:59-03:00');
