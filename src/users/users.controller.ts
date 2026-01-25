@@ -60,6 +60,7 @@ export class UsersController {
   })
   @Patch(':userId/rsvp')
   updateRsvp(@Param('userId') userId: string, @Body() body: UpdateRsvpDto) {
+    console.log({body})
     return this.usersService.updateRsvp(userId, body);
   }
 
