@@ -9,7 +9,8 @@ import {
 import { EstadoUsuario, AlergiaAlimentaria } from '../entities/user.entity';
 
 export class UpdateRsvpDto {
-  @IsPhoneNumber('CL')
+  //@IsPhoneNumber('CL')
+  @IsString()
   telefono: string;
 
   @IsOptional()

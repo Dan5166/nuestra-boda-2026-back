@@ -212,6 +212,8 @@ export class UsersService {
     dto: UpdateRsvpDto,
     estado_anterior: string,
   ) {
+    console.log('SERVICE DTO:', dto);
+  console.log('USER ID:', userId);
     const updateExpressions: string[] = [];
     const removeExpressions: string[] = [];
     const expressionValues: Record<string, any> = {};
