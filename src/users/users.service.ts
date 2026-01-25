@@ -347,6 +347,7 @@ export class UsersService {
   data: Record<string, any>,
 ) {
   const allowedFields = [
+    'nombre',
     'mail',
     'telefono',
     'estado',
