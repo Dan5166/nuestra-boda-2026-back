@@ -20,19 +20,42 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # Marcar repositorio como seguro
+            # ------------------------------
+            # Configuración inicial
+            # ------------------------------
             git config --global --add safe.directory ${{ secrets.VPS_PATH }}
-
             cd ${{ secrets.VPS_PATH }}
 
+            # ------------------------------
+            # Asegurarse de que no haya procesos PM2 viejos
+            # ------------------------------
+            pm2 stop nuestraboda-api || true
+            pm2 delete nuestraboda-api || true
+
+            # ------------------------------
             # Pull de cambios
-            git pull origin main
+            # ------------------------------
+            git fetch origin main
+            git reset --hard origin/main
 
-            # Instalar dependencias (sin sudo)
-            npm install
+            # ------------------------------
+            # Limpiar node_modules y reinstalar dependencias
+            # Esto ayuda a evitar problemas de permisos (EACCES)
+            # ------------------------------
+            rm -rf node_modules
+            npm install --legacy-peer-deps
 
+            # ------------------------------
             # Build del proyecto
+            # ------------------------------
             npm run build
 
-            # Reiniciar app
-            pm2 restart nuestraboda-api
+            # ------------------------------
+            # Iniciar app con PM2
+            # ------------------------------
+            pm2 start dist/main.js --name nuestraboda-api
+
+            # ------------------------------
+            # Guardar PM2 para reinicio automático al reboot
+            # ------------------------------
+            pm2 save
