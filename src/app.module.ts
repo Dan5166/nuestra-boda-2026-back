@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { S3Module } from './s3/s3.module';
 import { FilesModule } from './files/files.module';
 import { UsersModule } from './users/users.module';
+import { AccountsModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UsersModule } from './users/users.module';
         limit: 5,
       },
     ]),
+    AccountsModule,
   ],
   controllers: [AppController],
   providers: [
