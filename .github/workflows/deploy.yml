@@ -25,9 +25,6 @@ jobs:
 
             cd ${{ secrets.VPS_PATH }}
 
-            # Darle propiedad al usuario deploy (solo si hace falta)
-            sudo chown -R deploy:deploy ${{ secrets.VPS_PATH }}
-
             # Limpiar node_modules y dist para evitar problemas de permisos
             rm -rf node_modules dist
 
