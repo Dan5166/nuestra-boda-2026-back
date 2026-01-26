@@ -24,6 +24,12 @@ export class UsersController {
     return this.usersService.seedUsers();
   }
 
+  @Get('test')
+  test() {
+    return 'test';
+  }
+
+
   @Throttle({
     default: {
       limit: 3,
