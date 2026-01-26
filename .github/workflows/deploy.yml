@@ -24,4 +24,5 @@ jobs:
             git pull origin main
             npm install
             npm run build
-            pm2 reload nuestraboda-api || pm2 start dist/main.js --name nuestraboda-api
+            pm2 restart nuestraboda-api
+
