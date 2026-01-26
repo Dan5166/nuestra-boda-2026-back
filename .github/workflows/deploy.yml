@@ -16,13 +16,27 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
+          username: deploy                # tu usuario
           port: ${{ secrets.VPS_PORT }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            # Asegurar que Git confíe en el directorio
+            git config --global --add safe.directory ${{ secrets.VPS_PATH }}
+
             cd ${{ secrets.VPS_PATH }}
+
+            # Darle propiedad al usuario deploy (solo si hace falta)
+            sudo chown -R deploy:deploy ${{ secrets.VPS_PATH }}
+
+            # Limpiar node_modules y dist para evitar problemas de permisos
+            rm -rf node_modules dist
+
+            # Pull de la rama principal
             git pull origin main
+
+            # Instalar dependencias y build
             npm install
             npm run build
-            pm2 restart nuestraboda-api
 
+            # Reiniciar la app con PM2
+            pm2 restart nuestraboda-api
